@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:scrollable_landing_page/ui/shared/custom_menu_item.dart';
+
+import '../../provider/page_provider.dart';
 
 class  CustomAppMenu extends StatefulWidget {
   const CustomAppMenu ({ Key? key }) : super(key: key);
@@ -19,6 +22,7 @@ class _CustomAppMenuState extends State<CustomAppMenu> with SingleTickerProvider
   }
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageProvider>(context, listen: false);
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
@@ -42,11 +46,11 @@ class _CustomAppMenuState extends State<CustomAppMenu> with SingleTickerProvider
               _MenuTitle(isOpen: isOpen, controller: controller),
               if (isOpen)
               ...[
-                CustomMenuItem(text: 'Home', onPressed: (){}),
-                CustomMenuItem(text: 'About', onPressed: (){}),
-                CustomMenuItem(text: 'Pricing', onPressed: (){}),
-                CustomMenuItem(text: 'Contact', onPressed: (){}),
-                CustomMenuItem(text: 'Location', onPressed: (){}),
+                CustomMenuItem(text: 'Home', delay: 0, onPressed: () => pageProvider.goTo(0)),
+                CustomMenuItem(text: 'About', delay: 30, onPressed: () => pageProvider.goTo(1)),
+                CustomMenuItem(text: 'Pricing', delay: 60, onPressed: () => pageProvider.goTo(2)),
+                CustomMenuItem(text: 'Contact', delay: 90, onPressed: () => pageProvider.goTo(3)),
+                CustomMenuItem(text: 'Location', delay: 120, onPressed: () => pageProvider.goTo(4)),
                 SizedBox(height: 8.0,)
               ]
             ],
@@ -77,7 +81,7 @@ class _MenuTitle extends StatelessWidget {
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeInOut,
-            width: isOpen ? 50.0 : 0.0,
+            width: isOpen ? 40.0 : 0.0,
           ),
           Text('Menu', style: GoogleFonts.roboto(color: Colors.white, fontSize: 18.0),),
           Spacer(),

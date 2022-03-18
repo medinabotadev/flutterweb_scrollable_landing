@@ -6,7 +6,7 @@ class Flurorouter{
 
   static void configureRoutes(){
     router.define('/:page', handler: homeHandler);
-
+    
     router.notFoundHandler = homeHandler;
   }
 }

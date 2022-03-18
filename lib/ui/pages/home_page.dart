@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:scrollable_landing_page/provider/page_provider.dart';
 import 'package:scrollable_landing_page/ui/shared/custom_app_menu.dart';
 import 'package:scrollable_landing_page/ui/views/about_view.dart';
 import 'package:scrollable_landing_page/ui/views/contact_view.dart';
@@ -30,11 +32,11 @@ class HomePage extends StatelessWidget {
   }
 
   BoxDecoration buildBoxDecoration() {
-    return const BoxDecoration(
+    return BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Colors.pink,
-            Colors.purpleAccent
+            Colors.blue.shade50,
+            Colors.blue.shade600
           ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -52,7 +54,9 @@ class _HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pageProvider = Provider.of<PageProvider>(context, listen: false);
     return PageView(
+      controller: pageProvider.scrollController,
       scrollDirection: Axis.vertical,
       children: const <Widget>[
         HomeView(),
